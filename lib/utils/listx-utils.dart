@@ -1,5 +1,5 @@
 
-import 'package:convenient_utils/utils/common-utils.dart';
+import 'package:convenient_utils/utils/commonx-utils.dart';
 
 import '../const/Constantx.dart' as constants;
 
@@ -27,16 +27,13 @@ class ListxUtils {
   /// - when [nullable] is `true` and the value is null, [fallback] will be returned
   /// - when [nullable] is `false` and the value is null, will return [fallback] or an empty List `[]`
   static List<T>? parse<T>(dynamic value, {String? varPath, bool nullable = true, List<T>? fallback}) {
-    if (value==null && nullable) return fallback;
-    if (value==null && !nullable) {
+    dynamic _value = CommonxUtils.parse(value, path: varPath);
+    if (_value==null && nullable) return fallback;
+    if (_value==null && !nullable) {
       return fallback==null ? [] : fallback;
     }
-    if (value is Map && varPath!=null) {
-      dynamic pathValue = value[varPath];
-      return parse(pathValue, nullable: nullable, fallback: fallback);
-    }
-    if (!(value is List)) {
-      value = [value];
+    if (!(_value is List)) {
+      _value = [_value];
     }
     return value as List<T>;
   }
@@ -83,11 +80,8 @@ class ListxUtils {
   /// - `String desiredValue = Stringx.xguarantee(source, varPath: "user.id");` 
   /// - which would guarantee that the `desiredValue` is a non-null String value.
   static bool isList(dynamic value, {String? varPath}) {
-    if (value is Map && varPath!=null) {
-      dynamic pathValue = value[varPath];
-      return isList(pathValue);
-    }
-    return value is List;
+    dynamic _value = CommonxUtils.parse(value, path: varPath);
+    return _value is List;
   }
 
   /// generates a List of positive random integers uniformly distributed on the range from [min], inclusive, to [max], exclusive.
@@ -141,12 +135,12 @@ class ListxUtils {
   /// - could be changed to: 
   /// - `String desiredValue = Stringx.xguarantee(source, varPath: "user.id");` 
   /// - which would guarantee that the `desiredValue` is a non-null String value.
-  static T? first<T>(T value, {String? varPath, T? fallback}) {
+  static T? first<T>(dynamic value, {String? varPath, T? fallback}) {
     List? _list = parse(value, varPath: varPath, nullable: false, fallback: []);
     if (_list==null || _list.isEmpty) {
       return fallback;
     }
-    return _list[0];
+    return _list[0] as T;
   }
 
   /// retrieves last object in the list
@@ -165,7 +159,7 @@ class ListxUtils {
     if (_list==null || _list.isEmpty) {
       return fallback;
     }
-    return _list[_list.length-1];
+    return _list[_list.length-1] as T;
   }
 
   /// retrieves the object from the list at the provided [index]

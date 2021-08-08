@@ -1,20 +1,19 @@
 
+import 'commonx-utils.dart';
+
 /// Globally accessible list of exceptions caught and handled by Numberx
 final List<dynamic> numberxCaughtExceptions = [];
 
 class NumberxUtils {
 
   static int? parseInt(dynamic value, {String? varPath, bool nullable = true, int? fallback}) {
-    if (value==null && nullable) return fallback;
-    if (value==null && !nullable) {
+    dynamic _value = CommonxUtils.parse(value, path: varPath);
+    if (_value==null && nullable) return fallback;
+    if (_value==null && !nullable) {
       return fallback==null ? 0 : fallback;
     }
-    if (value is Map && varPath!=null) {
-      dynamic pathValue = value[varPath];
-      return parseInt(pathValue, nullable: nullable, fallback: fallback);
-    }
-    if (value is int) return value;
-    return int.tryParse(value);
+    if (_value is int) return _value;
+    return int.tryParse(_value);
   }
 
   static int guaranteeInt(dynamic value, {String? varPath, int? fallback}) {
@@ -24,16 +23,13 @@ class NumberxUtils {
   }
 
   static double? parseDouble(dynamic value, {String? varPath, bool nullable = true, double? fallback}) {
-    if (value==null && nullable) return fallback;
-    if (value==null && !nullable) {
+    dynamic _value = CommonxUtils.parse(value, path: varPath);
+    if (_value==null && nullable) return fallback;
+    if (_value==null && !nullable) {
       return fallback==null ? 0 : fallback;
     }
-    if (value is Map && varPath!=null) {
-      dynamic pathValue = value[varPath];
-      return parseDouble(pathValue, nullable: nullable, fallback: fallback);
-    }
-    if (value is double) return value;
-    return double.tryParse(value);
+    if (_value is double) return _value;
+    return double.tryParse(_value);
   }
 
   static double guaranteeDouble(dynamic value, {String? varPath, double? fallback}) {

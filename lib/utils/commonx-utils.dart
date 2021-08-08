@@ -1,5 +1,7 @@
 
 import '../const/Constantx.dart' as constants;
+import 'listx-utils.dart';
+import 'stringx-utils.dart';
 
 class CommonxUtils {
 
@@ -55,6 +57,19 @@ class CommonxUtils {
     )
   );
 
+  /// deteremines if the provided value is null or empty
+  /// 
+  /// `String? [path]`
+  /// 
+  /// if the [value] is a Map, then the path is used to pull a property nested within the map
+  static bool isEmpty(dynamic value, {String? varPath}) {
+    dynamic _value = parse(value, path: varPath);
+    if (_value==null) return true;
+    if (_value is String) return StringxUtils.isEmpty(_value);
+    if (_value is List) return ListxUtils.isEmpty(_value);
+    return false;
+  }
+
   /// generates a random String value
   /// 
   /// includes aplha, numeric and special characters `#!@+_)(*&^%$<>.,:;'"|\/[]`
@@ -68,10 +83,10 @@ class CommonxUtils {
     )
   );
 
-/// generates a positive random integer uniformly distributed on the range from [min], inclusive, to [max], exclusive.
-static int randomInt({int min = constants.MIN_INT, int max = constants.MAX_INT}) => min + constants.rnd.nextInt(max - min);
+  /// generates a positive random integer uniformly distributed on the range from [min], inclusive, to [max], exclusive.
+  static int randomInt({int min = constants.MIN_INT, int max = constants.MAX_INT}) => min + constants.rnd.nextInt(max - min);
 
-/// Generates a positive random double uniformly distributed on the range from [min], inclusive, to [max], exclusive.
-static double randomDouble({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE}) => (constants.rnd.nextDouble() * (min - max) + max);
+  /// Generates a positive random double uniformly distributed on the range from [min], inclusive, to [max], exclusive.
+  static double randomDouble({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE}) => (constants.rnd.nextDouble() * (min - max) + max);
 
 }

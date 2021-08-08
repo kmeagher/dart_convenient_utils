@@ -1,5 +1,6 @@
 
 import '../utils/listx-utils.dart';
+import '../const/Constantx.dart' as constants;
 
 class Listx<T> {
 
@@ -31,6 +32,62 @@ class Listx<T> {
 
   static bool xisList(dynamic value, {String? varPath}) {
     return ListxUtils.isList(value, varPath: varPath);
+  }
+
+  List<int> randomInts({int min = constants.MIN_INT, int max = constants.MAX_INT, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
+    return xrandomInts(min: min, max: max, duplicates: duplicates, length: length);
+  }
+
+  static List<int> xrandomInts({int min = constants.MIN_INT, int max = constants.MAX_INT, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
+    return ListxUtils.randomInts(min: min, max: max, duplicates: duplicates, length: length);
+  }
+
+  List<double> randomDoubles({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
+    return xrandomDoubles(min: min, max: max, duplicates: duplicates, length: length);
+  }
+
+  static List<double> xrandomDoubles({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
+    return ListxUtils.randomDoubles(min: min, max: max, duplicates: duplicates, length: length);
+  }
+
+  T? first<T>({String? varPath, T? fallback}) {
+    return xfirst<T>(this.value, varPath: varPath, fallback: fallback);
+  }
+
+  static T? xfirst<T>(dynamic value, {String? varPath, T? fallback}) {
+    return ListxUtils.first<T>(value, varPath: varPath, fallback: fallback);
+  }
+
+  T? last<T>({String? varPath, T? fallback}) {
+    return xlast(this.value, varPath: varPath, fallback: fallback);
+  }
+
+  static T? xlast<T>(dynamic value, {String? varPath, T? fallback}) {
+    return ListxUtils.last<T>(value, varPath: varPath, fallback: fallback);
+  }
+
+  T? atIndex<T>(dynamic value, int index, {String? varPath, T? fallback}) {
+    return xatIndex<T>(this.value, index, varPath: varPath, fallback: fallback);
+  }
+
+  static T? xatIndex<T>(dynamic value, int index, {String? varPath, T? fallback}) {
+    return ListxUtils.atIndex<T>(value, index, varPath: varPath, fallback: fallback);
+  }
+
+  bool isEmpty(dynamic value, {String? varPath}) {
+    return xisEmpty(this.value, varPath: varPath);
+  }
+
+  static bool xisEmpty(dynamic value, {String? varPath}) {
+    return ListxUtils.isEmpty(value, varPath: varPath);
+  }
+
+  int length({String? varPath}) {
+    return xlength(this.value, varPath: varPath);
+  }
+
+  static int xlength(dynamic value, {String? varPath}) {
+    return ListxUtils.length(value, varPath: varPath);
   }
 
 }

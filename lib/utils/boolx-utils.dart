@@ -1,5 +1,9 @@
 
-import 'common-utils.dart';
+import 'commonx-utils.dart';
+
+enum BoolxFormat {
+  camelCase, lowerCase, upperCase
+}
 
 class BoolxUtils {
 
@@ -12,6 +16,51 @@ class BoolxUtils {
     if (_value is int) return _value==1;
     if (_value is double) return _value==1.0;
     return fallback;
+  }
+
+  static int asInt(dynamic value, {String? varPath}) {
+    bool _value = parse(value, varPath: varPath);
+    return _value ? 1 : 0;
+  }
+
+  static double asDouble(dynamic value, {String? varPath}) {
+    bool _value = parse(value, varPath: varPath);
+    return _value ? 1.0 : 0.0;
+  }
+
+  static String asTrueFalse(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
+    bool _value = parse(value, varPath: varPath);
+    String str = _value ? "True" : "False";
+    switch(format) {
+      case BoolxFormat.camelCase:
+        return str;
+      case BoolxFormat.upperCase:
+        return str.toUpperCase();
+      default: 
+        return str.toLowerCase();
+    }
+  }
+
+  static String asYesNo(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
+    bool _value = parse(value, varPath: varPath);
+    String str = _value ? "Yes" : "No";
+    switch(format) {
+      case BoolxFormat.camelCase:
+        return str;
+      case BoolxFormat.upperCase:
+        return str.toUpperCase();
+      default: 
+        return str.toLowerCase();
+    }
+  }
+
+  static asYN(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
+    bool _value = parse(value, varPath: varPath);
+    String str = _value ? "Y" : "N";
+    if (format==BoolxFormat.lowerCase) {
+      return str.toLowerCase();
+    }
+    return str;
   }
 
 }

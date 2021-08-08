@@ -1,6 +1,6 @@
 
 import 'dart:convert';
-import '../utils/common-utils.dart';
+import 'commonx-utils.dart';
 import '../const/Constantx.dart' as constants;
 
 /// Globally accessible list of exceptions caught and handled by Stringx
@@ -27,18 +27,15 @@ class StringxUtils {
   /// - when [nullable] is `true` and the value is null, [fallback] will be returned
   /// - when [nullable] is `false` and the value is null, will return [fallback] or an empty String `""`
   static String? parse(dynamic value, {String? varPath, bool nullable = true, String? fallback}) {
-    if (value==null && nullable) return fallback;
-    if (value==null && !nullable) {
+    dynamic _value = CommonxUtils.parse(value, path: varPath);
+    if (_value==null && nullable) return fallback;
+    if (_value==null && !nullable) {
       return fallback==null ? "" : fallback; 
     }
-    if (value is Map && varPath!=null) {
-      dynamic pathValue = value[varPath];
-      return parse(pathValue, nullable: nullable, fallback: fallback);
+    if (!(_value is String)) {
+      _value = jsonEncode(_value);
     }
-    if (!(value is String)) {
-      value = jsonEncode(value);
-    }
-    return value;
+    return _value;
   }
 
   /// guarantees that the returned value will not be null. 
@@ -62,16 +59,11 @@ class StringxUtils {
   /// - when [nullable] is `true` and the value is null, [fallback] will be returned
   /// - when [nullable] is `false` and the value is null, will return [fallback] or an empty String `""`
   static String guarantee(dynamic value, {String? varPath, String fallback = ""}) {
-    try {
-      String? _value = parse(value, varPath: varPath, fallback: fallback, nullable: false);
-      if (_value==null) {
-        return fallback;
-      }
-      return _value;
-    } catch (e) {
-      stringXCaughtExceptions.add(e);
+    String? _value = parse(value, varPath: varPath, fallback: fallback, nullable: false);
+    if (_value==null) {
       return fallback;
     }
+    return _value;
   }
 
   /// determines if the provided value is equal to the provided `compareValue`
@@ -160,11 +152,8 @@ class StringxUtils {
   /// - `String desiredValue = Stringx.xguarantee(source, varPath: "user.id");` 
   /// - which would guarantee that the `desiredValue` is a non-null String value.
   static bool isString(dynamic value, {String? varPath}) {
-    if (value is Map && varPath!=null) {
-      String? pathValue = parse(value[varPath]);
-      return isString(pathValue);
-    }
-    return value is String;
+    dynamic _value = CommonxUtils.parse(value, path: varPath);
+    return _value is String;
   }
 
   /// generates a random String value
