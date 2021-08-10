@@ -5,6 +5,8 @@ import '../utils/dynamicx-utils.dart';
 import '../utils/stringx-utils.dart';
 import '../classes/stringx.dart';
 
+export '../const/Typex.dart' show Typex;
+
 class Dynamicx {
 
   dynamic value;
@@ -29,24 +31,7 @@ class Dynamicx {
   }
 
   static bool isType(dynamic value, Typex type) {
-    switch(type) {
-      case Typex.nullable:
-        return value==null;
-      case Typex.bool:
-        return value is bool;
-      case Typex.double:
-        return value is double;
-      case Typex.int:
-        return value is int;
-      case Typex.list:
-        return value is List;
-      case Typex.map:
-        return value is Map;
-      case Typex.string:
-        return value is String;
-      default:
-        return false;
-    }
+    return DynamicxUtils.isType(value, type);
   }
 
   dynamic prop(String propName, {Typex outputType = Typex.nullable, dynamic fallback}) {
@@ -80,7 +65,5 @@ class Dynamicx {
   static Stringx xasStringx(dynamic value, {String? varPath, bool nullable = true, String? fallback}) {
     return new Stringx(value, varPath: varPath, nullable: nullable, fallback: fallback);
   }
-
-  
 
 }

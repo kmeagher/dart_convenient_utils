@@ -48,4 +48,25 @@ class DynamicxUtils {
     }
   }
 
+  static bool isType(dynamic value, Typex type) {
+    switch(type) {
+      case Typex.nullable:
+        return value==null;
+      case Typex.bool:
+        return value is bool;
+      case Typex.double:
+        return value is double;
+      case Typex.int:
+        return value is int;
+      case Typex.list:
+        return value is List;
+      case Typex.map:
+        return value is Map;
+      case Typex.string:
+        return value is String;
+      default:
+        return false;
+    }
+  }
+
 }

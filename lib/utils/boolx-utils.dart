@@ -28,8 +28,8 @@ class BoolxUtils {
     return _value ? 1.0 : 0.0;
   }
 
-  static String asTrueFalse(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
-    bool _value = parse(value, varPath: varPath);
+  static String asTrueFalse(dynamic value, {String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    bool _value = parse(value, varPath: varPath, fallback: fallback);
     String str = _value ? "True" : "False";
     switch(format) {
       case BoolxFormat.camelCase:
@@ -41,8 +41,8 @@ class BoolxUtils {
     }
   }
 
-  static String asYesNo(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
-    bool _value = parse(value, varPath: varPath);
+  static String asYesNo(dynamic value, {String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    bool _value = parse(value, varPath: varPath, fallback: fallback);
     String str = _value ? "Yes" : "No";
     switch(format) {
       case BoolxFormat.camelCase:
@@ -54,8 +54,8 @@ class BoolxUtils {
     }
   }
 
-  static asYN(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
-    bool _value = parse(value, varPath: varPath);
+  static asYN(dynamic value, {String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    bool _value = parse(value, varPath: varPath, fallback: fallback);
     String str = _value ? "Y" : "N";
     if (format==BoolxFormat.lowerCase) {
       return str.toLowerCase();

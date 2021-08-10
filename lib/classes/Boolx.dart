@@ -1,6 +1,8 @@
 
 import '../utils/boolx-utils.dart';
 
+export '../utils/boolx-utils.dart' show BoolxFormat;
+
 class Boolx {
 
   bool? value;
@@ -33,28 +35,28 @@ class Boolx {
     return BoolxUtils.asDouble(value, varPath: varPath);
   }
 
-  String asTrueFalse({String? varPath}) {
-    return xasTrueFalse(this.value, varPath: varPath);
+  String asTrueFalse({String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    return xasTrueFalse(this.value, varPath: varPath, fallback: fallback);
   }
 
-  static String xasTrueFalse(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
-    return BoolxUtils.asTrueFalse(value, varPath: varPath, format: format);
+  static String xasTrueFalse(dynamic value, {String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    return BoolxUtils.asTrueFalse(value, varPath: varPath, fallback: fallback, format: format);
   }
 
-  String asYesNo({String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
-    return xasYesNo(this.value, varPath: varPath, format: format);
+  String asYesNo({String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    return xasYesNo(this.value, varPath: varPath, fallback: fallback, format: format);
   }
 
-  static String xasYesNo(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
-    return BoolxUtils.asYesNo(value, varPath: varPath, format: format);
+  static String xasYesNo(dynamic value, {String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    return BoolxUtils.asYesNo(value, varPath: varPath, fallback: fallback, format: format);
   }
 
-  String asYN({String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
-    return xasYN(this.value, varPath: varPath, format: format);
+  String asYN({String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    return xasYN(this.value, varPath: varPath, fallback: fallback, format: format);
   }
 
-  static String xasYN(dynamic value, {String? varPath, BoolxFormat format = BoolxFormat.lowerCase}) {
-    return BoolxUtils.asYN(value, varPath: varPath, format: format);
+  static String xasYN(dynamic value, {String? varPath, bool fallback = false, BoolxFormat format = BoolxFormat.lowerCase}) {
+    return BoolxUtils.asYN(value, varPath: varPath, fallback: fallback, format: format);
   }
 
 }
