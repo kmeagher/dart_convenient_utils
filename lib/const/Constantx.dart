@@ -12,5 +12,6 @@ const int MIN_INT = 0;
 const int MAX_INT = 10;
 const double MIN_DOUBLE = 0;
 const double MAX_DOUBLE = 10.0;
+const int MAX_RANDOM_LOOP = 1000;
 
 const List FALLBACK_LIST = [];

@@ -34,20 +34,20 @@ class Listx<T> {
     return ListxUtils.isList(value, varPath: varPath);
   }
 
-  List<int> randomInts({int min = constants.MIN_INT, int max = constants.MAX_INT, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
-    return xrandomInts(min: min, max: max, duplicates: duplicates, length: length);
+  List<int> randomInts({int min = constants.MIN_INT, int max = constants.MAX_INT, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH, String direction = "none"}) {
+    return xrandomInts(min: min, max: max, duplicates: duplicates, length: length, direction: direction);
   }
 
-  static List<int> xrandomInts({int min = constants.MIN_INT, int max = constants.MAX_INT, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
-    return ListxUtils.randomInts(min: min, max: max, duplicates: duplicates, length: length);
+  static List<int> xrandomInts({int min = constants.MIN_INT, int max = constants.MAX_INT, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH, String direction = "none"}) {
+    return ListxUtils.randomInts(min: min, max: max, duplicates: duplicates, length: length, direction: direction);
   }
 
-  List<double> randomDoubles({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
-    return xrandomDoubles(min: min, max: max, duplicates: duplicates, length: length);
+  List<double> randomDoubles({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH, String direction = "none"}) {
+    return xrandomDoubles(min: min, max: max, duplicates: duplicates, length: length, direction: direction);
   }
 
-  static List<double> xrandomDoubles({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
-    return ListxUtils.randomDoubles(min: min, max: max, duplicates: duplicates, length: length);
+  static List<double> xrandomDoubles({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH, String direction = "none"}) {
+    return ListxUtils.randomDoubles(min: min, max: max, duplicates: duplicates, length: length, direction: direction);
   }
 
   T? first<T>({String? varPath, T? fallback}) {

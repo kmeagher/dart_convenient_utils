@@ -1,5 +1,6 @@
 
 import 'commonx-utils.dart';
+import 'stringx-utils.dart';
 
 /// Globally accessible list of exceptions caught and handled by Numberx
 final List<dynamic> numberxCaughtExceptions = [];
@@ -13,7 +14,7 @@ class NumberxUtils {
       return fallback==null ? 0 : fallback;
     }
     if (_value is int) return _value;
-    return int.tryParse(_value);
+    return int.tryParse(StringxUtils.guarantee(_value));
   }
 
   static int guaranteeInt(dynamic value, {String? varPath, int? fallback}) {
@@ -29,7 +30,7 @@ class NumberxUtils {
       return fallback==null ? 0 : fallback;
     }
     if (_value is double) return _value;
-    return double.tryParse(_value);
+    return double.tryParse(StringxUtils.guarantee(_value));
   }
 
   static double guaranteeDouble(dynamic value, {String? varPath, double? fallback}) {

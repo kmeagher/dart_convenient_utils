@@ -1,5 +1,6 @@
 
 import 'package:convenient_utils/utils/commonx-utils.dart';
+import 'package:convenient_utils/utils/logx-utils.dart';
 
 import '../const/Constantx.dart' as constants;
 
@@ -90,7 +91,7 @@ class ListxUtils {
   /// 
   /// - when `true` will allow duplicate numbers in the list
   /// - when `false` will ensure that each number in the list is unique
-  static List<int> randomInts({int min = constants.MIN_INT, int max = constants.MAX_INT, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
+  static List<int> randomInts({int min = constants.MIN_INT, int max = constants.MAX_INT, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH, String direction = "none"}) {
     List<int> numbers = [];
     if (((max - min) < 0) || (!duplicates && ((max - min) < length))) {
       max = min + length;
@@ -101,25 +102,46 @@ class ListxUtils {
         numbers.add(nextNum);
       }
     }
+    if (direction=="asc" || direction=="up" || direction=="ascending") {
+      numbers.sort((int a, int b) => a.compareTo(b));
+    } else if (direction=="desc" || direction=="down" || direction=="descending") {
+      numbers.sort((int a, int b) => b.compareTo(a));
+    } 
     return numbers;
   }
 
   /// generates a List of positive random integers uniformly distributed on the range from [min], inclusive, to [max], exclusive.
   /// 
+  /// `int [length]` default 10
+  /// 
+  /// - determines how many numbers will be in the returned list
+  /// 
   /// `bool [duplicates]` default `false`
   /// 
   /// - when `true` will allow duplicate numbers in the list
   /// - when `false` will ensure that each number in the list is unique
-  static List<double> randomDoubles({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH}) {
+  static List<double> randomDoubles({double min = constants.MIN_DOUBLE, double max = constants.MAX_DOUBLE, bool duplicates = false, int length = constants.DEFAULT_RANDOM_NUMBER_LENGTH, String direction = "none"}) {
     List<double> numbers = [];
-    if (((max - min) < 0) || (!duplicates && ((max - min) < length))) {
-      max = min + length;
-    }
+    int lastLength = numbers.length;
+    int ticker = 0;
     while(numbers.length<length) {
       double nextNum = CommonxUtils.randomDouble(min: min, max: max);
       if (duplicates || (!duplicates && numbers.indexOf(nextNum) == -1)) {
         numbers.add(nextNum);
       }
+      if (numbers.length==lastLength) {
+        ticker++;
+      }
+      lastLength = numbers.length;
+      if (ticker>=constants.MAX_RANDOM_LOOP) {
+        LogxUtils.error("Listx could not produce $length numbers between $min and $max. We stopped at ${numbers.length} numbers.");
+        break;
+      }
+    }
+    if (direction=="asc" || direction=="up" || direction=="ascending") {
+      numbers.sort((double a, double b) => a.compareTo(b));
+    } else if (direction=="desc" || direction=="down" || direction=="descending") {
+      numbers.sort((double a, double b) => b.compareTo(a));
     }
     return numbers;
   }
